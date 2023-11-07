@@ -1,3 +1,12 @@
+class Player {
+    constructor(name, position, team, nickname, skills) {
+        this.name = name;
+        this.position = position;
+        this.team = team;
+        this.nickname = nickname;
+        this.skills = skills;
+    }
+}
 const getSomething = async () => {
     try {
         return (await fetch("api/something/")).json();
@@ -6,30 +15,35 @@ const getSomething = async () => {
     }
 };
 
+
+
 const showSomething = async () => {
-    let somethings = await getSomething();
-    let somethingsDiv = document.getElementById("something-list");
-    somethings.forEach((something) => {
+    let players = await getSomething();
+    let playersDiv = document.getElementById("player-list");
+    players.forEach((player) => {
         const section = document.createElement("section");
-        somethingsDiv.append(section);
+        playersDiv.append(section);
 
         const  a = document.createElement("a");
         a.href = "#";
         section.append(a);
 
         const h3 = document.createElement("h3");
-        h3.innerHTML = something.name;
+        h3.innerHTML = player.name;
         a.append(h3);
 
         a.onclick = () => {
-            const somethingDetails = document.getElementById("something-details");
-            somethingDetails.innerHTML = "";
             const p = document.createElement("p");
-            somethingDetails.append(p);
-            p.innerHTML = something.descript;
-        }
+            section.append(p);
+            p.innerHTML = "Position: " + player.position + "<br>" + "Team: " + player.team + "<br>" + "Nickname: " + player.nickname + "<br>" + "Skills: " + player.skills;
+            // li.innerHTML = player.img;
+            return section;
+        }    
     });
+    
 };
+
+
 
 
 window.onload = () => showSomething();
