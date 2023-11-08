@@ -18,7 +18,19 @@ let player = [
         id: 1, name: "Lebron James", position: "Power Forward", team: "Lakers", nickname: "King James", skills: ["Strength, agility and high basketball intelligence"], img: "images/lebron.jpeg", 
     },
     {
-        id: 2, name: "Desmond", descript: "dang it"
+        id: 2, name: "Stephen Curry", position: "Power Forward", team: "Lakers", nickname: "King James", skills: ["Strength, agility and high basketball intelligence"], img: "images/lebron.jpeg", 
+    },
+    {
+        id: 3, name: "Kevin Durant", position: "Power Forward", team: "Lakers", nickname: "King James", skills: ["Strength, agility and high basketball intelligence"], img: "images/lebron.jpeg", 
+    },
+    {
+        id: 4, name: "Nkola Jokic", position: "Power Forward", team: "Lakers", nickname: "King James", skills: ["Strength, agility and high basketball intelligence"], img: "images/lebron.jpeg", 
+    },
+    {
+        id: 5, name: "Damian Lillard", position: "Power Forward", team: "Lakers", nickname: "King James", skills: ["Strength, agility and high basketball intelligence"], img: "images/lebron.jpeg", 
+    },
+    {
+        id: 6, name: "Kyrie Irving", position: "Power Forward", team: "Lakers", nickname: "King James", skills: ["Strength, agility and high basketball intelligence"], img: "images/lebron.jpeg", 
     },
 ];
 

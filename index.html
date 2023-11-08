@@ -5,11 +5,27 @@
         <script src="script.js"></script>
     </head>
     <body>
-        <h1>Some title</h1>
+        <div class="players">
+            <div class="col1of2">
+                <h1 id="main-title">NBA Players</h1>
+                <div id="player-list"></div>
+                <div id="player-details"></div>
+            </div>
+            
+            <div class="col2of2">
+                <button id ="button-add"><h1 id="second-title">Click Here to Add your Favorite Player</h1></button>
+                <form id="add-player" class="hidden" method="post">
+                    <p>
+                        <label for="name">Player Name:</label>
+                        <input type="text" id="name" name="name" required />
+                    </p>
 
-        <div class="columns">
-            <div id="player-list"></div>
-            <div id="player-details"></div>
+                    <p>
+                        <label for="position">Position:</label>
+                        <input type="text" id="position" name="position" required />
+                    </p>
+                </form>  
+            </div>
         </div>
     </body>
 </html>

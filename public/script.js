@@ -32,18 +32,33 @@ const showSomething = async () => {
         h3.innerHTML = player.name;
         a.append(h3);
 
+        // const h1 = document.createElement("h1");
+        // h1.innerHTML = player.img;
+        // section.append(h1);
+        //TODO: fix img
+        //- if click on player show details. if clicked again hide details
+        //- fix formatting for the NBA players
+        //- fix button
+
         a.onclick = () => {
             const p = document.createElement("p");
             section.append(p);
+            section.classList.add("players");
             p.innerHTML = "Position: " + player.position + "<br>" + "Team: " + player.team + "<br>" + "Nickname: " + player.nickname + "<br>" + "Skills: " + player.skills;
-            // li.innerHTML = player.img;
+            
             return section;
-        }    
+        }   
     });
-    
+};
+
+const showAddPlayer = () => 
+{
+    document.getElementById("col2of2").classList.remove("add-player");
 };
 
 
-
-
-window.onload = () => showSomething();
+window.onload = () => 
+{
+    showSomething();
+    document.getElementById("button-add").onclick = showAddPlayer;
+};
