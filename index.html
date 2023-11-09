@@ -15,15 +15,39 @@
             <div class="col2of2">
                 <button id ="button-add"><h1 id="second-title">Click Here to Add your Favorite Player</h1></button>
                 <form id="add-player" method="post">
-                    <div class="hidden">
+                    <div id="info" class="hidden">
                         <p>
                             <label for="name">Player Name:</label>
-                            <input type="text" id="name" name="name" autocomplete="off" required />
+                            <input type="text" id="name" name="name" required />
                         </p>
 
                         <p>
                             <label for="position">Position:</label>
                             <input type="text" id="position" name="position" required />
+                        </p>
+
+                        <p>
+                            <label for="team">Team:</label>
+                            <input type="text" id="team" name="team" required />
+                        </p>
+
+                        <p>
+                            <label for="nickname">Nickname:</label>
+                            <input type="text" id="nickname" name="nickname" required />
+                        </p>
+
+                        <p id="skills-p">
+                            <label class="inline">Skills:</label>
+                            <a href="#" id="add-skill">Add Skill</a>
+                            <section id="skill-boxes"></section>
+                        </p>
+
+                        <p>
+                            <label for="img">Add Image:</label>
+                            <input type="file" id="img" name="img" required />
+                        </p>
+                        <p>
+                            <button type="submit">Submit</button>
                         </p>
                     </div>
                 </form>  

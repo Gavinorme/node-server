@@ -32,9 +32,6 @@ const showSomething = async () => {
         h3.innerHTML = player.name;
         a.append(h3);
 
-        // const h1 = document.createElement("h1");
-        // h1.innerHTML = player.img;
-        // section.append(h1);
         //TODO: fix img
         //- if click on player show details. if clicked again hide details
         //- fix formatting for the NBA players
@@ -46,6 +43,10 @@ const showSomething = async () => {
             section.classList.add("players");
             p.innerHTML = "Position: " + player.position + "<br>" + "Team: " + player.team + "<br>" + "Nickname: " + player.nickname + "<br>" + "Skills: " + player.skills;
             
+            let img = document.createElement("img");
+            section.append(img);
+            img.src = player.img;
+
             return section;
         }   
     });
@@ -53,7 +54,7 @@ const showSomething = async () => {
 
 const showAddPlayer = async () => 
 {
-    document.getElementById("add-player").classList.remove("hidden");
+    document.getElementById("info").classList.remove("hidden");
 };
 
 
