@@ -1,15 +1,6 @@
-class Player {
-    constructor(name, position, team, nickname, skills) {
-        this.name = name;
-        this.position = position;
-        this.team = team;
-        this.nickname = nickname;
-        this.skills = skills;
-    }
-}
-const getSomething = async () => {
+const getPlayer = async () => {
     try {
-        return (await fetch("api/something/")).json();
+        return (await fetch("api/player/")).json();
     } catch(error) {
         console.log("error");
     }
@@ -17,8 +8,8 @@ const getSomething = async () => {
 
 
 
-const showSomething = async () => {
-    let players = await getSomething();
+const showPlayer = async () => {
+    let players = await getPlayer();
     let playersDiv = document.getElementById("player-list");
     players.forEach((player) => {
         const section = document.createElement("section");
@@ -32,15 +23,18 @@ const showSomething = async () => {
         h3.innerHTML = player.name;
         a.append(h3);
 
-        //TODO: fix img
+        //TODO:
         //- if click on player show details. if clicked again hide details
         //- fix formatting for the NBA players
         //- fix button
+        //- add form to the list of players
+        //- make cursor a basketball for creativity
 
         a.onclick = () => {
             const p = document.createElement("p");
             section.append(p);
             section.classList.add("players");
+            
             p.innerHTML = "Position: " + player.position + "<br>" + "Team: " + player.team + "<br>" + "Nickname: " + player.nickname + "<br>" + "Skills: " + player.skills;
             
             let img = document.createElement("img");
@@ -57,9 +51,55 @@ const showAddPlayer = async () =>
     document.getElementById("info").classList.remove("hidden");
 };
 
+const displayPlayer = async () => 
+{
+
+}
+
+const addPlayer = async (e) => 
+{
+    e.preventDefault();
+
+    const form = document.getElementById("add-player");
+    const formData = new FormData(form);
+    formData.append("skills", getSkills());
+
+    let response;
+
+    //new player
+    // if(form._id.value == -1) {
+    //     console.log("new player");
+    // }
+};
+
+const addSkill = (e) => 
+{
+    e.preventDefault();
+    const skillBoxes = document.getElementById("skill-boxes");
+    const input = document.createElement("input");
+    input.type = "text";
+    skillBoxes.append(input);
+};
+
+const getSkills = () => {
+    const inputs = document.querySelectorAll("#skill-boxes input");
+    const skills = [];
+
+    inputs.forEach((input)=>
+    {
+        skills.push(input.value);
+    });
+
+    return skills;
+}
+
+
+
 
 window.onload = () => 
 {
-    showSomething();
+    showPlayer();
+    document.getElementById("add-player").onsubmit = addPlayer;
     document.getElementById("button-add").onclick = showAddPlayer;
+    document.getElementById("add-skill").onclick = addSkill;
 };

@@ -56,6 +56,14 @@ section a
     text-decoration: none;
 }
 
+/* Images */
+img
+{
+    width: 35%;
+    height: 50%; 
+    /* fit to border/section */
+}
+
 
 @media only screen and (min-width: 600px) {
     #player-list
