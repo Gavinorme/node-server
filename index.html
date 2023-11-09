@@ -14,16 +14,18 @@
             
             <div class="col2of2">
                 <button id ="button-add"><h1 id="second-title">Click Here to Add your Favorite Player</h1></button>
-                <form id="add-player" class="hidden" method="post">
-                    <p>
-                        <label for="name">Player Name:</label>
-                        <input type="text" id="name" name="name" required />
-                    </p>
+                <form id="add-player" method="post">
+                    <div class="hidden">
+                        <p>
+                            <label for="name">Player Name:</label>
+                            <input type="text" id="name" name="name" autocomplete="off" required />
+                        </p>
 
-                    <p>
-                        <label for="position">Position:</label>
-                        <input type="text" id="position" name="position" required />
-                    </p>
+                        <p>
+                            <label for="position">Position:</label>
+                            <input type="text" id="position" name="position" required />
+                        </p>
+                    </div>
                 </form>  
             </div>
         </div>

@@ -51,9 +51,9 @@ const showSomething = async () => {
     });
 };
 
-const showAddPlayer = () => 
+const showAddPlayer = async () => 
 {
-    document.getElementById("col2of2").classList.remove("add-player");
+    document.getElementById("add-player").classList.remove("hidden");
 };
 
 
