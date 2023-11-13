@@ -63,14 +63,9 @@ const addPlayer = async (e) =>
     const form = document.getElementById("add-player");
     const formData = new FormData(form);
     formData.append("skills", getSkills());
-    console.log(...formData);
+    const section = document.createElement("section");
 
-    let response;
-
-    //new player
-    // if(form._id.value == -1) {
-    //     console.log("new player");
-    // }
+    form.append(...formData);
 };
 
 const addSkill = (e) => 
