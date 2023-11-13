@@ -39,7 +39,7 @@ const showPlayer = async () => {
             
             let img = document.createElement("img");
             section.append(img);
-            img.src = player.img;
+            img.src = "https://node-server-pwd6.onrender.com" + player.img;
 
             return section;
         }   
