@@ -1,6 +1,6 @@
 const getPlayer = async () => {
     try {
-        return (await fetch("https://node-server4.onrender.com/api/players")).json();
+        return (await fetch("https://node-server4.onrender.com/api/player")).json();
     } catch(error) {
         console.log("error");
     }
