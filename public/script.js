@@ -1,6 +1,6 @@
 const getPlayer = async () => {
     try {
-        return (await fetch("api/player/")).json();
+        return (await fetch("https://node-server-pwd6.onrender.com")).json();
     } catch(error) {
         console.log("error");
     }
