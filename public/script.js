@@ -1,6 +1,6 @@
 const getPlayer = async () => {
     try {
-        return (await fetch("https://node-server3-uype.onrender.com/api/players")).json();
+        return (await fetch("https://node-server4.onrender.com/api/players")).json();
     } catch(error) {
         console.log("error");
     }
@@ -39,7 +39,7 @@ const showPlayer = async () => {
             
             let img = document.createElement("img");
             section.append(img);
-            img.src = "https://node-server3-uype.onrender.com/" + player.img;
+            img.src = "https://node-server4.onrender.com/" + player.img;
 
             return section;
         }   
