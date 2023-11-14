@@ -23,7 +23,7 @@ section
     padding: 10px;
     background-color: darkgray;
 }
-.col2of2
+.add-player
 {
     width: 50%;
     padding: 10px;
@@ -33,6 +33,28 @@ section
 {
     display: none;
 }
+#player-details
+{
+    width: 95%;
+    display: block;
+    border: 3px black solid;
+    margin: 15px;
+    text-align: center;
+
+}
+#add-box
+{
+    width: 100%;
+    display: block;
+    border: 3px black solid;
+    margin: 15px;
+    text-align: center;
+}
+/* #player-list
+{
+    margin-bottom: 10%;
+    margin-top: 10%;
+} */
 
 /* Typeography */
 section h3

@@ -5,17 +5,22 @@
         <script src="script.js"></script>
     </head>
     <body>
+        <header>
+            <h1 id="main-title">NBA Players</h1>
+            <a href="#" id="add-link">+</a>
+        </header>
         <div class="players">
             <div class="col1of2">
-                <h1 id="main-title">NBA Players</h1>
                 <div id="player-list"></div>
                 <div id="player-details"></div>
             </div>
             
-            <div class="col2of2">
+            <div class="add-player" class= "dialog transparent">
                 <button id ="button-add"><h1 id="second-title">Click Here to Add your Favorite Player</h1></button>
+                <span class="close">&times;</span>
                 <form id="add-player" method="post">
-                    <div id="info" class="hidden">
+                    <!-- <div id="info" class="hidden"> -->
+                        <input type="hidden" name="_id" value="-1" />
                         <p>
                             <label for="name">Player Name:</label>
                             <input type="text" id="name" name="name" required />
@@ -46,10 +51,11 @@
                             <label for="img">Add Image:</label>
                             <input type="file" id="img" name="img" />
                         </p>
+
                         <p>
                             <button type="submit">Submit</button>
                         </p>
-                    </div>
+                    <!-- </div> -->
                 </form>  
             </div>
         </div>
