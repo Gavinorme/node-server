@@ -13,7 +13,7 @@ app.get("/", (req, res) => {
     res.sendFile(__dirname + "/index.html");
 });
 
-let player = [
+let players = [
     {
         id: 1, name: "Lebron James", position: "Power Forward", team: "Lakers", nickname: "King James", skills: ["Strength, agility and high basketball intelligence"], img: "images/lebron.jpeg", 
     },
@@ -34,11 +34,11 @@ let player = [
     },
 ];
 
-app.get("/api/player", (req, res) => {
-    res.send(player);
+app.get("/api/players", (req, res) => {
+    res.send(players);
 });
 
-app.post("/api/player", upload.single("img"), (req, res)=> {
+app.post("/api/players", upload.single("img"), (req, res)=> {
     console.log("before");
     const result = validatePlayer(req.body);
 
