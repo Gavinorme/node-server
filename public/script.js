@@ -24,10 +24,8 @@ const showPlayer = async () => {
         h3.innerHTML = player.name;
         a.append(h3);
 
-        let img = document.createElement("img");
-        section.append(img);
-        img.src = "https://node-server4.onrender.com/" + player.img;
-        //when clicked hide and just show details
+       
+       
 
         //TODO:
         //- if click on player show details. if clicked again hide details
@@ -43,19 +41,19 @@ const showPlayer = async () => {
             
             p.innerHTML = "Position: " + player.position + "<br>" + "Team: " + player.team + "<br>" + "Nickname: " + player.nickname + "<br>" + "Skills: " + player.skills;
             
-            // let img = document.createElement("img");
-            // section.append(img);
-            // img.src = "https://node-server4.onrender.com/" + player.img;
+            let img = document.createElement("img");
+            section.append(img);
+            img.src = "https://node-server4.onrender.com/" + player.img;
 
             return section;
         }   
     });
 };
 
-const showAddPlayer = async () => 
-{
-    document.getElementById("info").classList.remove("hidden");
-};
+// const showAddPlayer = async () => 
+// {
+//     document.getElementById("info").classList.remove("hidden");
+// };
 
 const displayDetails = async (player) => 
 {
@@ -105,25 +103,37 @@ const addPlayer = async (e) =>
 {
     e.preventDefault();
 
-    const form = document.getElementById("add-player");
-    const formData = new FormData(form);
-    formData.append("skills", getSkills());
-    const playerDetails = document.getElementById("player-details");
-
-    playerDetails.append(...formData);
-
     // const form = document.getElementById("add-player");
     // const formData = new FormData(form);
     // formData.append("skills", getSkills());
+    // const playerDetails = document.getElementById("player-details");
 
-    // let response;
+    // playerDetails.append(...formData);
 
-    // //new player
-    // if(form._id.value == -1) {
-    //     formData.delete("_id");
-    //     console.log(...formData);
-    // }
+    const form = document.getElementById("add-player");
+    const formData = new FormData(form);
+    formData.append("skills", getSkills());
 
+    let response;
+
+    //new player
+    if(form._id.value == -1) {
+        formData.delete("_id");
+        console.log(...formData);
+    
+    response = await fetch("/api/players", {
+        method: "POST",
+        body: formData,
+    });
+    }
+    if(response.status != 200) {
+        console.log("Error contacting server");
+        return;
+    }
+
+    document.querySelector(".dialog").classList.add("transparent");
+    resetForm();
+    showPlayer();
 };
 
 const addSkill = (e) => 
@@ -157,7 +167,7 @@ const resetForm = () => {
 const showHideAdd = (e) => {
     e.preventDefault();
     document.querySelector(".dialog").classList.remove("transparent");
-    document.getElementById("add-player").innerHTML = "Add Player";
+    document.getElementById("second-title").innerHTML = "Add your Favorite Player";
     resetForm();
 };
 
@@ -168,7 +178,7 @@ window.onload = () =>
     document.getElementById("add-player").onsubmit = addPlayer;
     document.getElementById("add-link").onclick = showHideAdd;
 
-    document.getElementById("button-add").onclick = showAddPlayer;
+    // document.getElementById("button-add").onclick = showAddPlayer;
     document.getElementById("add-skill").onclick = addSkill;
 
     document.querySelector(".close").onclick = () => {

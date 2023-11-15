@@ -23,7 +23,7 @@ section
     padding: 10px;
     background-color: darkgray;
 }
-.add-player
+#add-player-container
 {
     width: 50%;
     padding: 10px;
@@ -50,11 +50,10 @@ section
     margin: 15px;
     text-align: center;
 }
-/* #player-list
+.transparent
 {
-    margin-bottom: 10%;
-    margin-top: 10%;
-} */
+    display: none;
+}
 
 /* Typeography */
 section h3
@@ -72,10 +71,9 @@ section a
 {
     text-align: center;
 }
-#button-add
+#add-link
 {
-    text-align: center;
-    text-decoration: none;
+    margin-left: 91%;
 }
 
 /* Images */

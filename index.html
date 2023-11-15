@@ -7,7 +7,7 @@
     <body>
         <header>
             <h1 id="main-title">NBA Players</h1>
-            <a href="#" id="add-link">+</a>
+            <a href="#" id="add-link">Add Player Here</a>
         </header>
         <div class="players">
             <div class="col1of2">
@@ -15,11 +15,10 @@
                 <div id="player-details"></div>
             </div>
             
-            <div class="add-player" class= "dialog transparent">
-                <button id ="button-add"><h1 id="second-title">Click Here to Add your Favorite Player</h1></button>
+            <div id="add-player-container" class= "dialog transparent">
                 <span class="close">&times;</span>
-                <form id="add-player" method="post">
-                    <!-- <div id="info" class="hidden"> -->
+                <h1 id="second-title">Players</h1>
+                <form id="add-player" method="POST">
                         <input type="hidden" name="_id" value="-1" />
                         <p>
                             <label for="name">Player Name:</label>
@@ -55,7 +54,6 @@
                         <p>
                             <button type="submit">Submit</button>
                         </p>
-                    <!-- </div> -->
                 </form>  
             </div>
         </div>

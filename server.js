@@ -38,7 +38,8 @@ app.get("/api/player", (req, res) => {
     res.send(player);
 });
 
-app.post("/api/players", (req, res)=> {
+app.post("/api/player", upload.single("img"), (req, res)=> {
+    console.log("before");
     const result = validatePlayer(req.body);
 
     if(result.error) {
@@ -57,8 +58,9 @@ app.post("/api/players", (req, res)=> {
 
     players.push(player);
     res.send(player);
+    console.log("after");
 });
-
+console.log("before validate");
 const validatePlayer = (player) => {
     const schema = Joi.object({
         _id: Joi.allow(""),
@@ -71,6 +73,7 @@ const validatePlayer = (player) => {
 
     return schema.validate(player);
 } 
+console.log("after validate");
 
 app.listen(3000, () => {
     console.log("Listening");
