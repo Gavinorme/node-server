@@ -18,19 +18,19 @@ let players = [
         id: 1, name: "Lebron James", position: "Power Forward", team: "Lakers", nickname: "King James", skills: ["Strength, agility and high basketball intelligence"], img: "images/lebron.jpeg", 
     },
     {
-        id: 2, name: "Stephen Curry", position: "Power Forward", team: "Lakers", nickname: "King James", skills: ["Strength, agility and high basketball intelligence"], img: "images/steph.jpeg", 
+        id: 2, name: "Stephen Curry", position: "Power Forward", team: "Lakers", nickname: "Chef Curry", skills: ["Strength, agility and high basketball intelligence"], img: "images/steph.jpeg", 
     },
     {
-        id: 3, name: "Kevin Durant", position: "Power Forward", team: "Lakers", nickname: "King James", skills: ["Strength, agility and high basketball intelligence"], img: "images/kd.jpeg", 
+        id: 3, name: "Kevin Durant", position: "Power Forward", team: "Lakers", nickname: "", skills: ["Strength, agility and high basketball intelligence"], img: "images/kd.jpeg", 
     },
     {
-        id: 4, name: "Damian Lillard", position: "Power Forward", team: "Lakers", nickname: "King James", skills: ["Strength, agility and high basketball intelligence"], img: "images/dame.jpeg", 
+        id: 4, name: "Damian Lillard", position: "Power Forward", team: "Lakers", nickname: "Dame Dolla", skills: ["Strength, agility and high basketball intelligence"], img: "images/dame.jpeg", 
     },
     {
         id: 5, name: "Kyrie Irving", position: "Power Forward", team: "Lakers", nickname: "King James", skills: ["Strength, agility and high basketball intelligence"], img: "images/kyrie.jpeg", 
     },
     {
-        id: 6, name: "Nkola Jokic", position: "Power Forward", team: "Lakers", nickname: "King James", skills: ["Strength, agility and high basketball intelligence"], img: "images/jokic.jpeg", 
+        id: 6, name: "Nkola Jokic", position: "Power Forward", team: "Lakers", nickname: "Joker", skills: ["Strength, agility and high basketball intelligence"], img: "images/jokic.jpeg", 
     },
 ];
 
@@ -60,7 +60,12 @@ app.post("/api/players", upload.single("img"), (req, res)=> {
     res.send(player);
     console.log("after");
 });
-console.log("before validate");
+
+app.put("/api/players/:id"), upload.single("img"), (req, res) => {
+    const id = parseInt(req.params.id);
+    console.log(`My id is: $id`);
+};
+
 const validatePlayer = (player) => {
     const schema = Joi.object({
         _id: Joi.allow(""),
@@ -73,7 +78,7 @@ const validatePlayer = (player) => {
 
     return schema.validate(player);
 } 
-console.log("after validate");
+
 
 app.listen(3000, () => {
     console.log("Listening");

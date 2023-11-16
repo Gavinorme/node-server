@@ -47,6 +47,11 @@ const showPlayer = async () => {
 
             return section;
         }   
+
+        a.onclick = (e) => {
+            e.preventDefault();
+            displayDetails(player);
+        }
     });
 };
 
@@ -60,10 +65,6 @@ const displayDetails = async (player) =>
     const playerDetails = document.getElementById("player-details");
     playerDetails.innerHTML = "";
 
-    const h3 = document.createElement("h3");
-    h3.innerHTML = player.name;
-    playerDetails.append(h3);
-
     const dLink = document.createElement("a");
     dLink.innerHTML = " &#x2715;";
     playerDetails.append(dLink);
@@ -72,11 +73,23 @@ const displayDetails = async (player) =>
     const eLink = document.createElement("a");
     eLink.innerHTML = "&#9998;";
     playerDetails.append(eLink);
-    dLink.id = "edit-link";
+    eLink.id = "edit-link";
+
+    const h3 = document.createElement("h3");
+    h3.innerHTML = player.name;
+    playerDetails.append(h3);
+
+    const h4 = document.createElement("h4");
+    h4.innerHTML = player.position;
+    playerDetails.append(h4);
 
     const p = document.createElement("p");
     p.innerHTML = player.team;
     playerDetails.append(p);
+
+    const p1 = document.createElement("p");
+    p1.innerHTML = player.nickname;
+    playerDetails.append(p1);
 
     const ul = document.createElement("ul");
     playerDetails.append(ul);
@@ -90,7 +103,7 @@ const displayDetails = async (player) =>
     eLink.onclick = (e) => {
         e.preventDefault();
         document.querySelector(".dialog").classList.remove("transparent");
-        document.getElementById("add-player").innerHTML = "Edit Player";
+        document.getElementById("second-title").innerHTML = "Edit Player";
     };
     dLink.onclick = (e) => {
         e.preventDefault();
@@ -99,36 +112,66 @@ const displayDetails = async (player) =>
     populateEditForm(player);
 };
 
+const populateEditForm = (player) => {
+    const form = document.getElementById("add-player");
+    form._id.value = player._id;
+    form.name.value = player.name;
+    form.position.value = player.position
+    form.team.value = player.team;
+    form.nickname.value = player.nickname;
+
+    //add skills
+    populateSkills(player.skills);
+};
+
+const populateSkills = (skills) => {
+    const section = document.getElementById("skill-boxes");
+    skills.forEach((skill)=>{
+        const input = document.createElement("input");
+        input.type = "text";
+        input.value = skill;
+        section.append(input);
+    });
+};
+
 const addPlayer = async (e) => 
 {
     e.preventDefault();
-
-    // const form = document.getElementById("add-player");
-    // const formData = new FormData(form);
-    // formData.append("skills", getSkills());
-    // const playerDetails = document.getElementById("player-details");
-
-    // playerDetails.append(...formData);
-
     const form = document.getElementById("add-player");
     const formData = new FormData(form);
-    formData.append("skills", getSkills());
-
+    // formData.append("skills", getSkills());
     let response;
 
     //new player
     if(form._id.value == -1) {
         formData.delete("_id");
+        formData.delete("img");
+        formData.append("skills", getSkills());
         console.log(...formData);
     
-    response = await fetch("/api/players", {
-        method: "POST",
-        body: formData,
-    });
+        response = await fetch("/api/players", {
+            method: "POST",
+            body: formData,
+        });
     }
+
+        else { //existing player
+            response = await fetch(`/api/players/${form._id.value}`,{
+                method: "PUT",
+                body: formData,
+            });
+        }
     if(response.status != 200) {
         console.log("Error contacting server");
         return;
+    }
+    response = await response.json();
+
+    //in edit mode
+    if(form._id.value == -1)
+    {
+        //get the player with the indicated id
+        //then display
     }
 
     document.querySelector(".dialog").classList.add("transparent");
@@ -139,10 +182,10 @@ const addPlayer = async (e) =>
 const addSkill = (e) => 
 {
     e.preventDefault();
-    const skillBoxes = document.getElementById("skill-boxes");
+    const section = document.getElementById("skill-boxes");
     const input = document.createElement("input");
     input.type = "text";
-    skillBoxes.append(input);
+    section.append(input);
 };
 
 const getSkills = () => {
