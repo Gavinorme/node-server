@@ -18,19 +18,19 @@ let players = [
         id: 1, name: "Lebron James", position: "Power Forward", team: "Lakers", nickname: "King James", skills: ["Strength, agility and high basketball intelligence"], img: "images/lebron.jpeg", 
     },
     {
-        id: 2, name: "Stephen Curry", position: "Power Forward", team: "Lakers", nickname: "Chef Curry", skills: ["Strength, agility and high basketball intelligence"], img: "images/steph.jpeg", 
+        id: 2, name: "Stephen Curry", position: "Power Forward", team: "Warriors", nickname: "Chef Curry", skills: ["Shooting, handling, and passing"], img: "images/steph.jpeg", 
     },
     {
-        id: 3, name: "Kevin Durant", position: "Power Forward", team: "Lakers", nickname: "", skills: ["Strength, agility and high basketball intelligence"], img: "images/kd.jpeg", 
+        id: 3, name: "Kevin Durant", position: "Power Forward", team: "Suns", nickname: "EasyMoneySniper", skills: ["Shooting, isolation, and mid-range"], img: "images/kd.jpeg", 
     },
     {
-        id: 4, name: "Damian Lillard", position: "Power Forward", team: "Lakers", nickname: "Dame Dolla", skills: ["Strength, agility and high basketball intelligence"], img: "images/dame.jpeg", 
+        id: 4, name: "Damian Lillard", position: "Power Forward", team: "Bucks", nickname: "Dame Dolla", skills: ["Clutch, deep 3's, and handling"], img: "images/dame.jpeg", 
     },
     {
-        id: 5, name: "Kyrie Irving", position: "Power Forward", team: "Lakers", nickname: "King James", skills: ["Strength, agility and high basketball intelligence"], img: "images/kyrie.jpeg", 
+        id: 5, name: "Kyrie Irving", position: "Power Forward", team: "Mavricks", nickname: "Uncle Drew", skills: ["Handling, layups, and passing"], img: "images/kyrie.jpeg", 
     },
     {
-        id: 6, name: "Nkola Jokic", position: "Power Forward", team: "Lakers", nickname: "Joker", skills: ["Strength, agility and high basketball intelligence"], img: "images/jokic.jpeg", 
+        id: 6, name: "Nkola Jokic", position: "Power Forward", team: "Nuggets", nickname: "Joker", skills: ["Passing, shooting, and rebounds"], img: "images/jokic.jpeg", 
     },
 ];
 
@@ -38,8 +38,18 @@ app.get("/api/players", (req, res) => {
     res.send(players);
 });
 
+app.get("/api/players/:id", (req, res) => {
+    const id = parseInt(req.params.id);
+
+    const player = players.find((r)=>r.id === id);
+
+    if(!player) {
+        res.status(404).send("The player with the given id was not found");
+    }
+    res.send(player);
+});
+
 app.post("/api/players", upload.single("img"), (req, res)=> {
-    console.log("before");
     const result = validatePlayer(req.body);
 
     if(result.error) {
@@ -53,18 +63,57 @@ app.post("/api/players", upload.single("img"), (req, res)=> {
         position: req.body.position,
         team: req.body.team,
         nickname: req.body.nickname,
+        
         skills: req.body.skills.split(","),
     };
 
+    if(req.file) {
+        player.img = "images/" +req.file.filename;
+    }
+
     players.push(player);
     res.send(player);
-    console.log("after");
 });
 
-app.put("/api/players/:id"), upload.single("img"), (req, res) => {
+app.put("/api/players/:id", upload.single("img"), (req, res) => {
     const id = parseInt(req.params.id);
-    console.log(`My id is: $id`);
-};
+
+    const player = players.find((r)=>r.id === id);
+    
+    const result = validatePlayer(req.body);
+
+    if(result.error) {
+        res.status(400).send(result.error.details[0].message);
+        return;
+    }
+
+    player.name = req.body.name;
+    player.position = req.body.position;
+    player.team = req.body.team;
+    player.nickname = req.body.nickname;
+    player.skills = req.body.skills.split(",");
+
+    if(req.file) {
+        player.img = "images/" +req.file.filename;
+    }
+
+    res.send(player);
+});
+
+app.delete("/api/players/:id", (req, res) => {
+    const id = parseInt(req.params.id);
+
+    const player = players.find((r)=>r.id === id);
+
+    if(!player) {
+        res.status(400).send("The player with the given id was not found.");
+        return;
+    }
+
+    const index = players.indexOf(player);
+    players.splice(index,1);
+    res.send(player);
+});
 
 const validatePlayer = (player) => {
     const schema = Joi.object({
@@ -73,7 +122,7 @@ const validatePlayer = (player) => {
         position: Joi.string().min(3).required(),
         team: Joi.string().min(3).required(),
         nickname: Joi.string().min(3).required(),
-        skills: Joi.allow(),
+        skills: Joi.allow(""),
     });
 
     return schema.validate(player);

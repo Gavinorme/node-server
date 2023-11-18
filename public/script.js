@@ -12,6 +12,7 @@ const getPlayer = async () => {
 const showPlayer = async () => {
     let players = await getPlayer();
     let playersDiv = document.getElementById("player-list");
+    playersDiv.innerHTML = "";
     players.forEach((player) => {
         const section = document.createElement("section");
         playersDiv.append(section);
@@ -24,29 +25,11 @@ const showPlayer = async () => {
         h3.innerHTML = player.name;
         a.append(h3);
 
-       
-       
-
-        //TODO:
-        //- if click on player show details. if clicked again hide details
-        //- fix formatting for the NBA players
-        //- fix button
-        //- add form to the list of players
-        //- make cursor a basketball for creativity
-
-        a.onclick = () => {
-            const p = document.createElement("p");
-            section.append(p);
-            section.classList.add("players");
-            
-            p.innerHTML = "Position: " + player.position + "<br>" + "Team: " + player.team + "<br>" + "Nickname: " + player.nickname + "<br>" + "Skills: " + player.skills;
-            
-            let img = document.createElement("img");
-            section.append(img);
-            img.src = "https://node-server4.onrender.com/" + player.img;
-
-            return section;
-        }   
+        if(player.img) {
+        const img = document.createElement("img");
+        section.append(img);
+        img.src = player.img;
+        } 
 
         a.onclick = (e) => {
             e.preventDefault();
@@ -55,12 +38,7 @@ const showPlayer = async () => {
     });
 };
 
-// const showAddPlayer = async () => 
-// {
-//     document.getElementById("info").classList.remove("hidden");
-// };
-
-const displayDetails = async (player) => 
+const displayDetails = (player) => 
 {
     const playerDetails = document.getElementById("player-details");
     playerDetails.innerHTML = "";
@@ -107,14 +85,34 @@ const displayDetails = async (player) =>
     };
     dLink.onclick = (e) => {
         e.preventDefault();
-        //delete player
+        deletePlayer(player);
     };
     populateEditForm(player);
 };
 
+const deletePlayer = async (player) => {
+    let response = await fetch(`/api/players/${player.id}`, {
+        method: "DELETE",
+        headers: {
+            "Content-Type": "application/json;charset=utf-8",
+        },
+    });
+
+    if(response.status != 200)
+    {
+        console.log("Error delete");
+        return;
+    }
+
+    let result = await response.json();
+    showPlayer();
+    document.getElementById("player-details").innerHTML = "";
+    resetForm();
+};
+
 const populateEditForm = (player) => {
     const form = document.getElementById("add-player");
-    form._id.value = player._id;
+    form._id.value = player.id;
     form.name.value = player.name;
     form.position.value = player.position
     form.team.value = player.team;
@@ -139,15 +137,13 @@ const addPlayer = async (e) =>
     e.preventDefault();
     const form = document.getElementById("add-player");
     const formData = new FormData(form);
-    // formData.append("skills", getSkills());
+    formData.append("skills", getSkills());
     let response;
 
     //new player
     if(form._id.value == -1) {
         formData.delete("_id");
-        formData.delete("img");
-        formData.append("skills", getSkills());
-        console.log(...formData);
+        // console.log(...formData);
     
         response = await fetch("/api/players", {
             method: "POST",
@@ -165,13 +161,14 @@ const addPlayer = async (e) =>
         console.log("Error contacting server");
         return;
     }
-    response = await response.json();
+    player = await response.json();
 
     //in edit mode
-    if(form._id.value == -1)
+    if(form._id.value != -1)
     {
         //get the player with the indicated id
         //then display
+        displayDetails(player);
     }
 
     document.querySelector(".dialog").classList.add("transparent");
@@ -221,7 +218,6 @@ window.onload = () =>
     document.getElementById("add-player").onsubmit = addPlayer;
     document.getElementById("add-link").onclick = showHideAdd;
 
-    // document.getElementById("button-add").onclick = showAddPlayer;
     document.getElementById("add-skill").onclick = addSkill;
 
     document.querySelector(".close").onclick = () => {
