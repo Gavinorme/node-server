@@ -1,7 +1,6 @@
 const getPlayer = async () => {
     try {
-        // return (await fetch("https://node-server4.onrender.com/api/player")).json();
-        return (await fetch("api/players")).json();
+        return (await fetch("https://node-server4.onrender.com/api/player")).json();
     } catch(error) {
         console.log("error");
     }
@@ -28,7 +27,7 @@ const showPlayer = async () => {
         if(player.img) {
         const img = document.createElement("img");
         section.append(img);
-        img.src = player.img;
+        img.src = "https://node-server4.onrender.com/api/player/" + player.img;
         } 
 
         a.onclick = (e) => {
@@ -91,7 +90,7 @@ const displayDetails = (player) =>
 };
 
 const deletePlayer = async (player) => {
-    let response = await fetch(`/api/players/${player.id}`, {
+    let response = await fetch(`https://node-server4.onrender.com/api/players/${player.id}`, {
         method: "DELETE",
         headers: {
             "Content-Type": "application/json;charset=utf-8",
