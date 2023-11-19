@@ -144,14 +144,14 @@ const addPlayer = async (e) =>
         formData.delete("_id");
         // console.log(...formData);
     
-        response = await fetch("/api/players", {
+        response = await fetch("https://node-server4.onrender.com/api/players", {
             method: "POST",
             body: formData,
         });
     }
 
         else { //existing player
-            response = await fetch(`/api/players/${form._id.value}`,{
+            response = await fetch(`https://node-server4.onrender.com/api/players/${form._id.value}`,{
                 method: "PUT",
                 body: formData,
             });
